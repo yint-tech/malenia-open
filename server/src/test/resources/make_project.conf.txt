@@ -1,0 +1,62 @@
+#目标输出文件夹
+target:../malenia-open
+
+# 包名替换规则
+pkg:cn.iinti.malenia2->cn.iinti.malenia2
+
+# 关键字替换规则
+key:Malenia->Malenia
+key:malenia->malenia
+
+
+# 忽略文件
+ignore:.idea
+ignore:.gradle
+ignore:local.properties
+ignore:.DS_Store
+ignore:build/
+ignore:.git/
+ignore:.gitmodules/
+ignore:node_modules
+ignore:target/
+ignore:.vuepress/dist/
+ignore:.vuepress/.temp/
+ignore:.yarn/
+ignore:yarn.lock
+ignore:package-lock.json
+ignore:deploy/
+ignore:server/assets/iinti/
+ignore:server/assets/iinti_release.sh
+ignore:server/src/test/groovy/IntAlert.groovy
+
+# 如果存在，则不执行替换规则，团队定制化的配置文件
+notOverwrite:/xxx-module/build.gradle.kts
+
+# keep文件
+keep:*.jar
+keep:*.aar
+keep:*.png
+keep:*.jpg
+keep:*.jpeg
+keep:*.ico
+keep:*.otf
+keep:*.woff2
+keep:*.ttf
+keep:*.woff
+keep:*.p12
+keep:*.eot
+keep:*.webp
+keep:*.bin
+
+# 文件内容keep,这是是暂时不方便替换的内容
+keepContent:com.yint.cannotEdit
+keepContent:Atomic
+keepContent:atomic
+
+# 生成文件之后执行的命令
+cmd:chmod +x server/assets/startup.sh
+cmd:chmod +x gradlew
+
+# 随机扰动，当完全创建一个项目的时候，对部分可能涉及到系统资源的配置进行扰动（如本地调试端口）
+shuffle:7623->application.properties,docker-compose-local.yaml,make_project.conf.txt
+shuffle:9816->application.properties,setupProxy.js,make_project.conf.txt,Dockerfile,Dockerfile.all-in-one

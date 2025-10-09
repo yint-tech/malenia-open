@@ -1,0 +1,15 @@
+FROM registry.cn-beijing.aliyuncs.com/iinti/mysql-8-jdk17
+WORKDIR /opt/malenia
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./MaleniaMain.zip /opt/malenia/
+RUN unzip MaleniaMain.zip
+RUN rm -f MaleniaMain.zip
+RUN cp /opt/malenia/conf/ddl.sql /docker-entrypoint-initdb.d/ddl.sql
+
+ENV TZ=Asia/Shanghai
+ENV MYSQL_ROOT_PASSWORD=malenia
+ENV SPRING_DATASOURCE_USERNAME=root
+ENV SPRING_DATASOURCE_PASSWORD=malenia
+ENV SPRING_DATASOURCE_URL=jdbc:mysql://127.0.0.1:3306/malenia?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&autoConnect=true
+EXPOSE 8060
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

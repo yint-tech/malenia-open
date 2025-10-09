@@ -1,0 +1,20 @@
+[versions]
+apk-parser = "2.6.10"
+commons-io = "2.16.1"
+commons-lang3 = "3.14.0"
+appcompat = "1.7.0"
+material = "1.12.0"
+nettyCodec = "4.1.90.Final"
+lombok = "1.18.32"
+jsoup = "1.15.3"
+
+[libraries]
+apk-parser = { module = "net.dongliu:apk-parser", version.ref = "apk-parser" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+netty-codec = { module = "io.netty:netty-codec", version.ref = "nettyCodec" }
+netty-handler = { module = "io.netty:netty-handler", version.ref = "nettyCodec" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
