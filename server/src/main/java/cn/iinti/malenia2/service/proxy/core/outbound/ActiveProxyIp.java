@@ -308,9 +308,15 @@ public class ActiveProxyIp {
         void scheduleCleanIdleCache(Channel cacheChannel, Integer idleSeconds) {
             // 为了避免gc hold，所有延时任务里面不允许直接访问channel对象，而使用WeakReference
             WeakReference<Channel> channelRef = new WeakReference<>(cacheChannel);
+            // 同理cachedChannels也需要包装一层，如果直接访问cachedChannels变量，则会隐式依赖CacheHandle对象，进而持有整个ActiveProxyIp的实例
+            WeakReference<LinkedList<Channel>> cachedChannelsRef = new WeakReference<>(cachedChannels);
             workThread.postDelay(() -> {
                 Channel gcChannel = channelRef.get();
                 if (gcChannel == null || !gcChannel.isActive()) {
+                    return;
+                }
+                LinkedList<Channel> cachedChannels = cachedChannelsRef.get();
+                if (cachedChannels == null) {
                     return;
                 }
                 for (Channel ch : cachedChannels) {
