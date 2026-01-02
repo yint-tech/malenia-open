@@ -7,6 +7,7 @@ import cn.iinti.malenia2.service.proxy.core.Session;
 import cn.iinti.malenia2.service.proxy.core.outbound.ActiveProxyIp;
 import cn.iinti.malenia2.service.proxy.core.outbound.IpPool;
 import io.netty.channel.Channel;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
@@ -84,7 +85,7 @@ public abstract class AbstractUpstreamHandShaker {
         }
     }
 
-    private static final Set<String> notOfflineProxyMsgs = new HashSet<String>() {
+    private static final Set<String> notOfflineProxyMsgs = new HashSet<>() {
         {
             add("NETWORK_UNREACHABLE");
         }
@@ -106,7 +107,7 @@ public abstract class AbstractUpstreamHandShaker {
             } finally {
                 boolean needOfflineProxy = true;
                 for (String notOfflineProxyMsg : notOfflineProxyMsgs) {
-                    if (errorMsg.contains(notOfflineProxyMsg)) {
+                    if (StringUtils.contains(errorMsg, notOfflineProxyMsg)) {
                         // java.lang.RuntimeException: cmd failed: NETWORK_UNREACHABLE
                         // 这个时候其实就是目标服务器连不上，和代理服务器没有关系
                         needOfflineProxy = false;
